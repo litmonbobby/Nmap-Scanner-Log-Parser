@@ -1,45 +1,50 @@
-# Ransomware Traffic Detector
+# Nmap Scanner & Log Parser
 
-This project is a basic proof-of-concept Python tool that analyzes `.pcap` files (Wireshark packet captures) for potential ransomware behavior. It uses simple rule-based logic to flag suspicious patterns in network activity.
+This Python CLI tool performs a fast TCP SYN scan on a target machine using Nmap, parses the output, and highlights potentially risky ports and services. It's designed to help junior security engineers or students practice basic network scanning and log management.
 
 ## Features
-- Accepts `.pcap` files as input
-- Flags common ransomware indicators:
-  - Sudden bursts of outbound connections
-  - Communication to uncommon ports
-  - High-frequency access to SMB shares or known C2 IPs
-- Outputs summary of flagged activity
+
+- Fast Nmap scan (`-sS -T4 -Pn`) execution
+- Parses open ports and detected services from output
+- Flags known risky ports like Telnet (23), SMB (445), RDP (3389)
+- Color-coded terminal output for easier readability
+- Automatically saves results to a timestamped log file
 
 ## Skills Demonstrated
+
 - Python scripting
-- PCAP parsing using `scapy`
-- Network security concepts
-- Basic behavioral detection logic
+- Subprocess handling
+- Regex & output parsing
+- Basic network security concepts
+- Log creation and file management
 
 ## Example Usage
+
 ```bash
-$ python detect_ransomware.py --pcap ransomware_sample.pcap
-```
+$ python scanner.py --target 192.168.1.100
+Sample Output
+text
+Copy
+Edit
+[+] Open Port: 22/tcp (ssh)
+[+] Open Port: 80/tcp (http)
+[!] Potential risk: Port 23/tcp (telnet)
+[+] Log saved to scan_192_168_1_100_20250428_1035.log
+Setup
+Make sure Nmap is installed and available in your system PATH
 
-## Sample Output
-```text
-[!] Suspicious burst: 45 outbound connections in 5 seconds to multiple IPs
-[!] Potential C2 communication on port 4444
-[+] Analysis complete: 2 high-risk events flagged.
-```
+Clone this repo and run the script:
 
-## Requirements
-- Python 3.7+
-- scapy (`pip install scapy`)
+bash
+Copy
+Edit
+git clone https://github.com/your-username/nmap-scanner-log-parser.git
+cd nmap-scanner-log-parser
+python scanner.py --target <IP>
+Requirements
+Python 3.6+
 
-## Setup
-```bash
-git clone https://github.com/your-username/ransomware-traffic-detector.git
-cd ransomware-traffic-detector
-python detect_ransomware.py --help
-```
+Nmap installed locally
 
----
-
-**Author:** Bobby Litmon  
-**Contact:** litmonbobby@gmail.com
+Author: Bobby Litmon
+Contact: litmonbobby@gmail.com
